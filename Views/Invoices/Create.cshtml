@@ -1,0 +1,75 @@
+﻿@model WebApplication1.Models.Invoice
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Invoice</h4>
+<hr />
+<div class="row">
+    <div >
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label asp-for="InvoiceDate" class="control-label"></label>
+                    @Html.TextBoxFor(i => i.InvoiceDate, "{0:MM/dd/yyyy}", new { @class = "form-control" })
+                    @*<input asp-for="InvoiceDate" class="form-control" />*@
+                    <span asp-validation-for="InvoiceDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="For" class="control-label"></label>
+                    <input type="text" asp-for="For" class="form-control" />
+                    <span asp-validation-for="For" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div>
+                <table id="myTable" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-2">Code</th>
+                            <th class="col-sm-*">Description</th>
+                            <th class="col-sm-1">Qty</th>
+                            <th class="col-sm-2">Price</th>
+                            <th class="col-sm-2">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @Html.Partial("EditorRow", Model)
+
+                        @Html.ActionLink("Add Item", "BlankEditorRow", "Invoices", null, new { id = "addItem" })
+
+                        <tr>
+                            <td>
+                                <p id="total">0.00</p>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+               
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

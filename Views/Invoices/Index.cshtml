@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WebApplication1.Models.Invoice>
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{ var CanDeleteInvoice = UserManager.GetUserAsync(User).Result.CanDeleteInvoice;}
+@{ var CanAddInvoice = UserManager.GetUserAsync(User).Result.CanAddInvoice;}
+@{ var CanEditInvoice = UserManager.GetUserAsync(User).Result.CanEditInvoice;}
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+@if (CanAddInvoice)
+{
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.For)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InvoiceDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InvoiceSum)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.For)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvoiceDate, "{ 0:MM / dd / yyyy}")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvoiceSum, "{ 0:MM / dd / yyyy}")
+                </td>
+                <td>
+                    @if (CanEditInvoice)
+                    {
+                        <a asp-action="Edit" style="margin:4px" asp-route-id="@item.InvoiceId">Edit</a>
+                    }
+
+                    <a asp-action="Details" style="margin:4px" asp-route-id="@item.InvoiceId">Details</a>
+
+                    @if (CanDeleteInvoice)
+                    {
+                        <a asp-action="Delete" style="margin:4px" asp-route-id="@item.InvoiceId">Delete</a>
+                    }
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

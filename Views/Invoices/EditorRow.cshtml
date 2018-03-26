@@ -1,0 +1,47 @@
+@model WebApplication1.Models.Invoice
+
+        @for (int i = 0; i < Model.InvoiceItems.Count; i++)
+        {
+            @if(Model.InvoiceItems[i] == null)
+            {
+                continue;
+            }
+
+            <tr>
+                @Html.HiddenFor(m => m.InvoiceItems[i].InvoiceItemId)
+                <td>
+                    
+                    <input asp-for="InvoiceItems[i].Code" class="form-control" />
+                    <span asp-validation-for="InvoiceItems[i].Code" class="text-danger"></span>
+                </td>
+
+                <td >
+                    <input asp-for="InvoiceItems[i].Description" class="form-control" />
+                    <span asp-validation-for="InvoiceItems[i].Description" class="text-danger"></span>   
+                </td>
+
+                 <td >
+                     <input asp-for="InvoiceItems[i].Qty" class="form-control qty-input" />
+                     <span asp-validation-for="InvoiceItems[i].Qty" class="text-danger"></span>          
+                 </td>
+
+                <td>
+                    <input asp-for="InvoiceItems[i].Price" class="form-control price-input" />
+                    <span asp-validation-for="InvoiceItems[i].Price" class="text-danger"></span>
+                </td>
+
+             
+                <td>
+
+                    <p  class="total-cell">$0.00</p>
+
+                </td>
+                  
+
+                
+            </tr>
+
+        }
+
+
+            

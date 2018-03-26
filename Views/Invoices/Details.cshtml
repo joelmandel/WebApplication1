@@ -1,0 +1,57 @@
+﻿@model WebApplication1.Models.Invoice
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+@{ var CanEditInvoice = UserManager.GetUserAsync(User).Result.CanEditInvoice;}
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.For)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.For)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <table id="myTable" class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="col-sm-2">Code</th>
+                <th class="col-sm-*">Description</th>
+                <th class="col-sm-1">Qty</th>
+                <th class="col-sm-2">Price</th>
+                <th class="col-sm-2">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @Html.Partial("ViewRow", Model)
+
+
+        </tbody>
+    </table>
+
+</div>
+<div>
+    @if (CanEditInvoice)
+    {
+        <a asp-action="Edit" style="margin:4px" asp-route-id="@Model.InvoiceId">Edit</a>
+     }
+
+    <a style="margin:4px" asp-action="Index">Back to List</a>
+</div>

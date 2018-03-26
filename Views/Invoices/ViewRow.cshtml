@@ -1,0 +1,40 @@
+﻿@model WebApplication1.Models.Invoice
+
+@for (int i = 0; i < Model.InvoiceItems.Count; i++)
+{
+    @if (Model.InvoiceItems[i] == null)
+    {
+        continue;
+    }
+
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.InvoiceItems[i].Code)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.InvoiceItems[i].Description)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.InvoiceItems[i].Qty)
+        </td>
+
+        <td>
+            @Html.DisplayFor(model => model.InvoiceItems[i].Price)
+        </td>
+
+
+        <td>
+
+            <p class="total-cell">$0.00</p>
+
+        </td>
+
+
+
+    </tr>
+
+}
+
+
